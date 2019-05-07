@@ -5,12 +5,12 @@ import java.util.Random;
 public class Producer extends Thread {
 	private FoodItem[] foodBuffer;
 	private Controller controller;
-	private Buffer buffer;
+	private Buffer2 buffer;
 	private String name;
 	private volatile boolean producing = false;
 	Random rand = new Random();
 	
-	public Producer(String name, Controller controller, Buffer buffer) {
+	public Producer(String name, Controller controller, Buffer2 buffer) {
 		this.name = name;
 		this.controller = controller;
 		this.buffer = buffer;
@@ -35,15 +35,15 @@ public class Producer extends Thread {
 		System.out.println(getProducerName() + " started. Producing = " + producing);
 		while(true) {
 			while(producing) {
+				
 				try {
 					FoodItem item = foodBuffer[rand.nextInt(20)];
 					buffer.add(item);
-//					System.out.println("'" + getProducerName() + "' producing: " + item.getName());
 					controller.updateProgressBar(1);
-					Thread.sleep(500);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}
+				}				
 			}
 		}
 	}
