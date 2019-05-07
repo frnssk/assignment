@@ -102,46 +102,78 @@ public class GUISemaphore {
 		frame.repaint();
 	}
 	
-	public void updateIca(int items, int weight, int volume) {
+	public void setStatusProducer(String producer, String status) {
+		if(producer.equals("S")) {
+			lblStatusS.setText(status);
+		} else if(producer.equals("A")) {
+			lblStatusA.setText(status);
+		} else {
+			lblStatusX.setText(status);
+		}
+	}
+	
+	public void setStatusConsumer(String consumer, String status) {
+		if(consumer.equals("Ica")) {
+			lblIcaStatus.setText(status);
+		} else if(consumer.equals("Coop")) {
+			lblCoopStatus.setText(status);
+		} else {
+			lblCGStatus.setText(status);
+		}
+	}
+	
+	public void updateIca(int items, int weight, int volume, String cargo) {
 		icaItems = items;
 		lblIcaItems.setText("" + icaItems);
 		icaWeight = weight;
 		lblIcaWeight.setText("" + icaWeight);
 		icaVolume = volume;
 		lblIcaVolume.setText("" + icaVolume);
+		
+		lstIca.append(cargo + "\n");
+		
 		frame.repaint();
 	}
 	
-	public void updateCoop(int items, int weight, int volume) {
+	public void updateCoop(int items, int weight, int volume, String cargo) {
 		coopItems = items;
 		lblCoopItems.setText("" + coopItems);
 		coopWeight = weight;
 		lblCoopWeight.setText("" + coopWeight);
 		coopVolume = volume;
 		lblCoopVolume.setText("" + coopVolume);
+		
+		lstCoop.append(cargo + "\n");
+		
 		frame.repaint();
 	}
 	
-	public void updateCityGross(int items, int weight, int volume) {
+	public void updateCityGross(int items, int weight, int volume, String cargo) {
 		cgItems = items;
 		lblCGItems.setText("" + cgItems);
 		cgWeight = weight;
 		lblCGWeight.setText("" + cgWeight);
 		cgVolume = volume;
 		lblCGVolume.setText("" + cgVolume);
+		
+		lstCG.append(cargo + "\n"); 
+		
 		frame.repaint();
 	}
 	
 	public void clearIca() {
-		updateIca(0,0,0);
+		updateIca(0,0,0, "");
+		lstIca.setText("");
 	}
 
 	public void clearCoop() {
-		updateCoop(0,0,0);
+		updateCoop(0,0,0, "");
+		lstCoop.setText("");
 	}
 	
 	public void clearCityGross() {
-		updateCityGross(0,0,0);
+		updateCityGross(0,0,0, "");
+		lstCG.setText("");
 	}
 	
 	/**
@@ -396,6 +428,18 @@ public class GUISemaphore {
 
 		// Add consumer panel to frame
 		frame.add(pnlCons);
+	}
+	
+	public boolean getIcaCont() {
+		return chkIcaCont.isSelected();
+	}
+	
+	public boolean getCoopCont() {
+		return chkCoopCont.isSelected();
+	}
+	
+	public boolean getCGCont() {
+		return chkCGCont.isSelected();
 	}
 
 	public void initButtons() {
